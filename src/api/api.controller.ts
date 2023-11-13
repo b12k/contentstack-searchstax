@@ -26,7 +26,7 @@ export class ApiController {
       url,
     });
 
-    return this.webhookService.writeToIndex(indexEntry);
+    this.webhookService.writeToIndex(indexEntry);
   }
 
   @Get()
