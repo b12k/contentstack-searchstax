@@ -14,7 +14,7 @@ export class ApiController {
 
   @Post()
   @UseZodGuard('body', WebhookPayloadDto)
-  create(@Body() payload: WebhookPayloadDto) {
+  async create(@Body() payload: WebhookPayloadDto) {
     const {
       data: {
         entry: { url, uid: id, title },
@@ -27,7 +27,7 @@ export class ApiController {
       url,
     });
 
-    this.webhookService.writeToIndex(indexEntry);
+    await this.webhookService.writeToIndex(indexEntry);
   }
 
   @Get()
