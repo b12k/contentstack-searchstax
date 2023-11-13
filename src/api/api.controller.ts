@@ -6,7 +6,6 @@ import {
 } from './dto';
 import { ApiService } from './api.service';
 import { UseZodGuard } from 'nestjs-zod';
-import { map, tap } from 'rxjs';
 
 @Controller('api/search')
 export class ApiController {
