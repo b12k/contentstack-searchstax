@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { catchError, map } from 'rxjs';
+import { catchError, map, firstValueFrom } from 'rxjs';
 import { CreateSolrIndexEntryDto } from './dto';
 import { HttpService } from '@nestjs/axios';
 import { AxiosError } from 'axios';
@@ -18,12 +18,15 @@ export interface ISearchstaxSearchResponse {
 export class ApiService {
   constructor(private readonly httpService: HttpService) {}
 
-  writeToIndex(payload: CreateSolrIndexEntryDto) {
-    return this.httpService.post('update', payload).pipe(
+  async writeToIndex(payload: CreateSolrIndexEntryDto) {
+    const requestObservable = this.httpService.post('update', payload).pipe(
       catchError((error: AxiosError) => {
         throw error;
       }),
     );
+
+    const response = await firstValueFrom(requestObservable);
+    console.log('writeToIndex', response.status, response.statusText, payload);
   }
 
   readFromIndex(searchText: string) {
