@@ -33,6 +33,9 @@ export class ApiController {
   @UseZodGuard('query', SearchQueryDto)
   read(@Query() payload: SearchQueryDto) {
     const { search } = payload;
+
+    if (search === '') return [];
+
     return this.webhookService.readFromIndex(search);
   }
 }
