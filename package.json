@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "ngrok": "env-cmd -i ngrok http --domain=selected-dove-workable.ngrok-free.app {{PORT}}",
+    "ngrok": "env-cmd -i ngrok http --domain={{NGROK_URL}}.ngrok-free.app {{PORT}}",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node dist/main",
     "dev": "env-cmd nest start --watch",
